@@ -1,0 +1,35 @@
+{
+  "name": "node-saddlecreek",
+  "version": "1.0.0",
+  "description": "This is a Node.js Moudle that will allow you to hook into Saddle Creek's Inventory & Fulfillment API Endpoints ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/yonib05/Node-SaddleCreek.git"
+  },
+  "keywords": [
+    "node",
+    "saddle creek",
+    "fulfillment service",
+    "fulfillment api"
+  ],
+  "author": "@leandropio @yonib05 @hickies",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yonib05/Node-SaddleCreek/issues"
+  },
+  "homepage": "https://github.com/yonib05/Node-SaddleCreek",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "jayschema": "^0.3.1",
+    "path": "^0.11.14",
+    "soap": "^0.9.1",
+    "util": "^0.10.3"
+  }
+}
