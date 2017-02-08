@@ -90,7 +90,7 @@ Methods
           Price: 0.00
         }
       ],                        
-      BillingAddress: {             
+      BillingAddress: {             //not required
         FirstName: '',              // req if not CompanyName 
         LastName: '', 
         CompanyName: '',            // req if not Name
