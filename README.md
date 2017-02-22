@@ -1,16 +1,9 @@
-# Node-SaddleCreek
-This is a Node.js Moudle that will allow you to hook into Saddle Creek's Inventory &amp; Fulfillment API Endpoints 
-
-
-Warehouse connector
+Node-SaddleCreek
 ===================
-
-
-Module to connect to ProLog/ProWares SOAP API 
-
+#### ProLog/ProWares SOAP XML API Wrapper
+This is a Node.js Module will allow you to hook into Saddle Creek's Inventory, Fulfillment, &amp; ASN API Endpoints 
 
 ----------
-
 
 Setup
 -------
@@ -37,7 +30,7 @@ The settings object could contain these properties:
       debugLogs: false  // Only use it during development 
     }
 Recommended to use a local Wsdl file, think what would happen if your server restart in a moment when the remote WSDL server is not online. It will never get connected!
-One caveat I think on this subject is, if  ProLog company decides to change specification, the local file has no way to know this happened. The remote way is no a total warranty neither as all this connector would fail anyway if they introduce several changes in the future. 
+One caveat I think on this subject is, if  ProLog company decides to change specification, the local file has no way to know this happened. The remote way is no a total warranty neither as all this connector would fail anyway if they introduce several changes in the future.
 
 ----------
 
@@ -45,7 +38,7 @@ One caveat I think on this subject is, if  ProLog company decides to change spec
 Methods
 -------
 
-####warehouse.getInventory( productArray, callback );
+####warehouse.getInventoryStatus( productArray, callback );
 
 ######**Arguments**
 **productArray**: 
@@ -60,21 +53,21 @@ Methods
 
 ----------
 
-####warehouse.sendOrderToWarehouse( orderObjArray, callback);
+####warehouse.createOrders( orderObjArray, callback);
 
 ######**Arguments**
 **orderObjArray**: 
  Accepts {orderObject} or [ {orderObject}, {orderObject}, ... ] and is **required**
  Expected orderObject to be in this form:
  
-
+ ```javascript
     {
       OrderNumber: '',              // req
       CustomerPO: '', 
       OrderDate: '',                // req
-      AutoAllocate: true|false,
+      AutoAllocate: true||false,
       ShippingService: '',          // req
-      BillThirdParty: true|false,
+      BillThirdParty: true||false,
       AccountNumber: '',            // req if BillThidParty is true
       EmailConfirmationAddress: '', 
       OrderProcessingVariation: '',
@@ -114,7 +107,7 @@ Methods
       }
     }
   
-
+```
  
 **callback ( err, result )**: 
  Accepts only function and is **required**
@@ -124,7 +117,7 @@ Methods
  
  ----------
 
-####warehouse.updateTracking( orderNumberArray, callback );
+####warehouse.getTrackingStatus( orderNumberArray, callback );
 
 ######**Arguments**
 **orderNumberArray**: 
@@ -134,29 +127,32 @@ Methods
  Accepts only function and is **required**
  Arguments passed: 
  - Error Object or *null*
- - Result Object with following form:
+ - Result is an array of Objects with following form:
 
+ ```javascript
+      {
+              'OrderNumber': '...',
+              'Status': '...',
+              'ShippingService': '...',
+              'Shipments': [
+                {
+                'Status': '...',
+                'ShippedDate': DateTime,
+                'Packages': [
+                  {
+                    'TrackingNumber': '...',
+                    'ShippedDate': DateTime,
+                    'Weight': '##.##',
+                    'Cost' : '##.##'      
+                  }
+             ]
+              }
+         ]
+       };
  
-
-  order = {
-             'OrderNumber': '...',
-             'Status': '...',
-             'ShippingService': '...',
-             'Shipments': [
-               {
-               'Status': '...',
-               'ShippedDate': DateTime,
-               'Packages': [
-                 {
-                   'TrackingNumber': '...',
-                   'ShippedDate': DateTime,
-                   'Weight': '##.##',
-                   'Cost' : '##.##'      
-                 }
-            ]
-             }
-        ]
-      };
+ 
+ ```
+  
       
 Important: 
  - If there aren't shipment then order.Shipments won't exist in the response 
@@ -164,3 +160,71 @@ Important:
  
 
 
+ ----------
+ 
+ 
+ ####warehouse.getASNStatus( ASNObj, callback );
+ 
+ ######**Arguments**
+  
+ **ASNObj**:  
+  - **Required**
+  - Accepts a Javascript object like:
+   
+     ```javascript
+    
+     ```
+    
+  
+ **callback ( err, result )**: 
+  Accepts only function and is **required**
+  Arguments passed: 
+  - Error Object or *null*
+  - Result Object with following form:
+ 
+ 
+ TBD: Create Documentation
+  
+
+ 
+
+ 
+ 
+ 
+
+####warehouse.getASNStatus( type, asnNameString, callback );
+
+######**Arguments**
+**type**: 
+ This Field tells the warehouse if the asn you are providing in the second argument is of type ASN or of type PO 
+ Accepts  'ASN' or 'PO' and is **required**
+ 
+**asn**: 
+  Accepts  'Client ASN' or 'SC ASN' or 'Client PO' and is **required**
+ 
+**callback ( err, result )**: 
+ Accepts only function and is **required**
+ Arguments passed: 
+ - Error Object or *null*
+ - Result Object with following form:
+
+
+TBD: Create Documentation
+ 
+ ```javascript
+
+ ```
+
+
+
+
+
+Tests
+-------
+
+TBD: Create tests
+- [x] getInventoryStatus()
+- [ ] createOrders()
+- [ ] getTrackingStatus()
+- [ ] createASN()
+- [ ] getASNStatus()
