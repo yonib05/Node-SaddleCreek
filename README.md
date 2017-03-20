@@ -78,7 +78,7 @@ Methods
       Total : 0.00, 
       OrderLines: [                 // req 
         {
-          Product: '',              // req
+          Product: '',              // req (must be unique in the array one line per sku)
           Quantity: 0,              // req
           Price: 0.00
         }
@@ -113,7 +113,7 @@ Methods
  Accepts only function and is **required**
  Arguments passed: 
  - Error Object or *null* --> Note: Albeit the error object contains validation error info, it is not normalized therefore is not suitable to client side validation, suggested a client side validation
- - Result Object ( an object representing the raw response from the service intended for debugging use, remember that with the sole fact that the err argument is *null* is enough to know that the order was sent successfuly  ) 
+ - Result Object ( an object representing the raw response from the service intended for debugging use, remember that with the sole fact that the err argument is *null* is enough to know that the order was sent successfuly  note: if one item fails they the whole batch is aborted this is prologs response) 
  
  ----------
 
@@ -209,12 +209,52 @@ Important:
  - Result Object with following form:
 
 
-TBD: Create Documentation
+TODO: Create Documentation
  
  ```javascript
 
  ```
 
+
+
+
+####warehouse.validate.Order(order);
+
+######**Arguments**
+ A superficial Validation (schema validation)
+ ######**Arguments**
+  
+ **order**: 
+   Accepts  order Object **required**
+  
+ **Returns**: 
+  Either 'SUCCESS' or Array of issues 
+
+
+TODO: Create Documentation
+ 
+ ```javascript
+
+ ```
+ 
+ 
+ 
+ ####warehouse.validate.ASN(ASN);
+ A superficial Validation (schema validation)
+ ######**Arguments**
+  
+ **ASN**: 
+   Accepts  ASN Object **required**
+  
+ **Returns**: 
+  Either 'SUCCESS' or Array of issues 
+ 
+ 
+ TODO: Create Documentation
+  
+  ```javascript
+ 
+  ```
 
 
 
@@ -224,7 +264,7 @@ Tests
 
 TBD: Create tests
 - [x] getInventoryStatus()
-- [ ] createOrders()
+- [x] createOrders()
 - [ ] getTrackingStatus()
 - [ ] createASN()
 - [ ] getASNStatus()
