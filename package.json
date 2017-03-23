@@ -1,6 +1,6 @@
 {
   "name": "node-saddlecreek",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "This is a Node.js Moudle that will allow you to hook into Saddle Creek's Inventory & Fulfillment API Endpoints ",
   "main": "index.js",
   "scripts": {
