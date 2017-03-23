@@ -195,8 +195,8 @@ describe('Warehouse.createOrder', function () {
                 if (err) return done(err);
                 else {
                     try {
-                        results.should.be.instanceof(Array); // the assertion
-                        results.should.be.instanceof(Array).and.have.lengthOf(1); // the assertion
+                        results.ProLogCode.should.be.instanceof(String).and.eql('SUCCESS');
+                        results.OrderResults.should.be.instanceof(Array).and.have.lengthOf(1); // the assertion
                         return done(); // if the assertion passes, the done will be called
                     } catch (err2) { // here we catch an error which assertion throws when it fails
                         return done(err2); // we need to call done(err2) to finish the test which failed
@@ -217,6 +217,55 @@ describe('Warehouse.createOrder', function () {
                 if (err) return done(err);
                 else {
                     try {
+                        results.ProLogCode.should.be.instanceof(String).and.eql('SUCCESS');
+                        results.OrderResults.should.be.instanceof(Array).and.have.lengthOf(2); // the assertion
+                        return done(); // if the assertion passes, the done will be called
+                    } catch (err2) { // here we catch an error which assertion throws when it fails
+                        return done(err2); // we need to call done(err2) to finish the test which failed
+                    }
+
+                }
+
+            })
+
+        });
+    });
+
+
+});
+
+
+
+describe('Warehouse.getTrackingStatus', function () {
+
+    //create One Order products
+    describe('#arguments(sampleOrder, callback)', function () {
+        it('should the status of the order', function (done) {
+            warehouse.getTrackingStatus('test 1', function (err, results) {
+                if (err) return done(err);
+                else {
+                    try {
+                        results.should.be.instanceof(Array); // the assertion
+                        results.should.be.instanceof(Array).and.have.lengthOf(1); // the assertion
+                        return done(); // if the assertion passes, the done will be called
+                    } catch (err2) { // here we catch an error which assertion throws when it fails
+                        return done(err2); // we need to call done(err2) to finish the test which failed
+                    }
+
+                }
+
+            })
+
+        });
+    });
+
+    //create multiple Orders
+    describe('#arguments([sampleOrder1, sampleOrder2], callback)', function () {
+        it('should the status of the orders', function (done) {
+            warehouse.getTrackingStatus(['test 1', 'test 4'], function (err, results) {
+                if (err) return done(err);
+                else {
+                    try {
                         results.should.be.instanceof(Array).and.have.lengthOf(2); // the assertion
                         return done(); // if the assertion passes, the done will be called
                     } catch (err2) { // here we catch an error which assertion throws when it fails
@@ -232,4 +281,83 @@ describe('Warehouse.createOrder', function () {
 
 
 });
+
+
+
+
+
+var sampleASN = {
+    "ASNNumber": 'sampleASN'+ Math.floor(Math.random() * 9999999), // req
+    "PONumber": "sampleASN_PO",
+    "Notes": "THIS IS A FAKE NOTE",
+    "ExpectedDate": '2008-05-07T12:00:00Z', // req
+    "Warehouse": "be9197e3-fd3a-4baa-942b-9dfab6cc64b5", // req for test using Sand Diego
+    "Carrier": 'UPS', // req
+    "Lines": [
+        {
+        "Sku": "test 55", // req
+        "QuantityExpected": 1 // req
+        },
+        {
+        "Sku": "TestSerial", // req
+        "QuantityExpected": 600 // req
+        }
+    ]
+
+};
+
+
+
+describe('Warehouse.createASN', function () {
+    //create ASN
+    describe('#arguments(sampleASN, callback)', function () {
+        it('should return success message or error message that order has been created', function (done) {
+            warehouse.createASN(sampleASN, function (err, results) {
+                if (err) return done(err);
+                else {
+                    try {
+                        results.ProLogCode.should.be.instanceof(String).and.eql('SUCCESS');
+                        return done(); // if the assertion passes, the done will be called
+                    } catch (err2) { // here we catch an error which assertion throws when it fails
+                        return done(err2); // we need to call done(err2) to finish the test which failed
+                    }
+
+                }
+
+            })
+
+        });
+    });
+
+});
+
+
+
+
+
+
+
+describe('Warehouse.getASNStatus', function () {
+    //create ASN
+    describe('#arguments("ASN", sampleASN, callback)', function () {
+        it('should return success message or error message that order has been created', function (done) {
+            warehouse.getASNStatus('ASN', 'Invoice #456876', function (err, results) {
+                if (err) return done(results);
+                else {
+                    try {
+                        results.should.be.instanceof(Object);
+                        return done(); // if the assertion passes, the done will be called
+                    } catch (err2) { // here we catch an error which assertion throws when it fails
+                        return done(err2); // we need to call done(err2) to finish the test which failed
+                    }
+
+                }
+
+            })
+
+        });
+    });
+
+});
+
 

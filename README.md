@@ -162,33 +162,35 @@ Important:
 
  ----------
  
- 
- ####warehouse.getASNStatus( ASNObj, callback );
+ ####warehouse.createASN( ASN, callback);
  
  ######**Arguments**
-  
- **ASNObj**:  
-  - **Required**
-  - Accepts a Javascript object like:
-   
-     ```javascript
-    
-     ```
-    
-  
- **callback ( err, result )**: 
-  Accepts only function and is **required**
-  Arguments passed: 
-  - Error Object or *null*
-  - Result Object with following form:
+ **ASN**: 
+  Accepts {ASN Object} **required**
+  Expected ASN Object to be in this form:
  
  
- TBD: Create Documentation
-  
+ ```javascript
 
+                {
+                    "ASNNumber": "", // req
+                    "PONumber": "",
+                    "Notes": "",
+                    "ExpectedDate": DateTime, // req
+                    "Warehouse": "", // req
+                    "Carrier": "", // req
+                    "Lines": [{
+                        "Sku": "", // req
+                        "QuantityExpected": 0 // req
+                    }]
+                }
+                
+
+
+```
+ 
  
 
- 
  
  
 
@@ -212,16 +214,34 @@ Important:
 TODO: Create Documentation
  
  ```javascript
+ 
+    {
+        "ASNNumber": "",
+        "PONumber": "",
+        "Status": "COMPLETE", // possible values: WORKING, EXPECTED, OPEN, COMPLETE, CANCELLED 
+        "Notes": "",
+        "Lines": [{
+                "Sku": "",
+                "Product": "",
+                "QuantityExpected": 0,
+                "QuantityReceived": 0,
+                "QuantityStocked": 0
+            }, {
+                "Sku": "",
+                "Product": "",
+                "QuantityExpected": 0,
+                "QuantityReceived": 0,
+                "QuantityStocked": 0
+            }]
+    }
 
  ```
-
-
 
 
 ####warehouse.validate.Order(order);
 
 ######**Arguments**
- A superficial Validation (schema validation)
+ A superficial Validation (schema validation) see createOrder() for format
  ######**Arguments**
   
  **order**: 
@@ -230,17 +250,10 @@ TODO: Create Documentation
  **Returns**: 
   Either 'SUCCESS' or Array of issues 
 
-
-TODO: Create Documentation
- 
- ```javascript
-
- ```
- 
  
  
  ####warehouse.validate.ASN(ASN);
- A superficial Validation (schema validation)
+ A superficial Validation (schema validation) see createASN() for format
  ######**Arguments**
   
  **ASN**: 
@@ -250,21 +263,35 @@ TODO: Create Documentation
   Either 'SUCCESS' or Array of issues 
  
  
- TODO: Create Documentation
-  
-  ```javascript
- 
-  ```
+Implemented API Point (Based on the wsdl file)
+-------
+- [x] PLGetInventory
+- [x] PLSubmitOrder
+- [x] PLGetOrderStatus
+- [x] PLSubmitASN
+- [x] PLGetASNStatus
+
+**The Following api points according to Saddle Creek Don't exist.**
+***They are however disclosed in the wsdl file so ##USE AT YOUR OWN RISK##***
+
+- [ ] PLCreateSKU
+- [ ] PLGetSKUData
+- [ ] PLCreateProduct
+- [ ] PLUpdateOrder
+- [ ] PLDeleteOrder
 
 
 
 
 Tests
 -------
-
-TBD: Create tests
 - [x] getInventoryStatus()
 - [x] createOrders()
-- [ ] getTrackingStatus()
-- [ ] createASN()
-- [ ] getASNStatus()
+- [x] getTrackingStatus()
+- [x] createASN()
+- [x] getASNStatus()
+
+
+
+
+
