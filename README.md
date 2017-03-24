@@ -188,8 +188,22 @@ Important:
 
 
 ```
+**callback ( err, result )**: 
+ Accepts only function and is **required**
+ Arguments passed: 
+ - Error Object or *null*
+ - Result is an array of Objects with following form:
+
  
- 
+```javascript
+{
+    ProLogCode : "", 
+    ProLogMessage : ""
+};
+
+
+
+``` 
 
  
  
