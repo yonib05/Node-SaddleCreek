@@ -197,9 +197,9 @@ Important:
  
 ```javascript
 {
-    ProLogCode : "", 
-    ProLogMessage : ""
-};
+    "ProLogCode": "", 
+    "ProLogMessage": ""
+}
 
 
 
@@ -224,8 +224,6 @@ Important:
  - Error Object or *null*
  - Result Object with following form:
 
-
-TODO: Create Documentation
  
  ```javascript
  
@@ -250,6 +248,35 @@ TODO: Create Documentation
     }
 
  ```
+
+
+
+####warehouse.deleteOrder( OrderNumber, callback);
+ 
+ ######**Arguments**
+ **OrderNumber**: 
+  Accepts String with the order number **required**
+  Expected ASN Object to be in this form:
+ 
+ 
+**callback ( err, result )**: 
+ Accepts only function and is **required**
+ Arguments passed: 
+ - Error Object or *null*
+ - Result is an array of Objects with following form:
+
+```javascript
+{
+    "ProLogCode": "", //possible values: SUCCESS, AUTHENTICATION_FAILURE, INVALID_ARGS, INTERNAL_ERROR, ORDER_CANNOT_BE_FOUND, ORDER_CANNOT_BE_DELETED
+    "ProLogMessage": ""
+}
+``` 
+ ######**Addtional Notes**
+ - This enpoint according to saddle creek customer service does not exist (and probably should not be used) but it's in the wsdl file and as seen in the testing it does in fact work.
+ - Orders can only be deleted if they are still in the OPEN state.
+ - Orders can't be deleted if they are staged. (probably haven't tested)
+ 
+
 
 
 ####warehouse.validate.Order(order);
@@ -292,7 +319,7 @@ Implemented API Point (Based on the wsdl file)
 - [ ] PLGetSKUData
 - [ ] PLCreateProduct
 - [ ] PLUpdateOrder
-- [ ] PLDeleteOrder
+- [x] PLDeleteOrder
 
 
 
@@ -304,6 +331,7 @@ Tests
 - [x] getTrackingStatus()
 - [x] createASN()
 - [x] getASNStatus()
+- [x] deleteOrder()
 
 
 

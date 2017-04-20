@@ -361,3 +361,53 @@ describe('Warehouse.getASNStatus', function () {
 });
 
 
+
+
+describe('Warehouse.deleteOrder', function () {
+    //deleting sample order we created
+    describe('#arguments("OrderNumber", callback)', function () {
+        it('should return success message that order has been deleted', function (done) {
+            warehouse.deleteOrder(sampleOrder1.OrderNumber, function (err, results) {
+                if (err) return done(results);
+                else {
+                    try {
+                        results.should.be.instanceof(Object);
+                        results.ProLogCode.should.be.instanceof(String).and.eql('SUCCESS');
+                        return done(); // if the assertion passes, the done will be called
+                    } catch (err2) { // here we catch an error which assertion throws when it fails
+                        return done(err2); // we need to call done(err2) to finish the test which failed
+                    }
+
+                }
+
+            })
+
+        });
+    });
+
+    //if order is unable to be deleted
+    describe('#arguments("OrderNumber", callback)', function () {
+        it('should return an error message that order can not be deleted (as it is closed)', function (done) {
+            warehouse.deleteOrder("1", function (err, results) {
+                if (!err) return done(results);
+                else {
+                    try {
+                        results.should.be.instanceof(Object);
+                        results.ProLogCode.should.be.instanceof(String).and.eql('ORDER_CANNOT_BE_DELETED');
+                        return done(); // if the assertion passes, the done will be called
+                    } catch (err2) { // here we catch an error which assertion throws when it fails
+                        return done(err2); // we need to call done(err2) to finish the test which failed
+                    }
+
+                }
+
+            })
+
+        });
+    });
+
+});
+
+
+
+
