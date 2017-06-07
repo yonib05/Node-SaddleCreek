@@ -60,52 +60,80 @@ Methods
  Accepts {orderObject} or [ {orderObject}, {orderObject}, ... ] and is **required**
  Expected orderObject to be in this form:
  
- ```javascript
-    {
-      OrderNumber: '',              // req
-      CustomerPO: '', 
-      OrderDate: '',                // req
-      AutoAllocate: true||false,
-      ShippingService: '',          // req
-      BillThirdParty: true||false,
-      AccountNumber: '',            // req if BillThidParty is true
-      EmailConfirmationAddress: '', 
-      OrderProcessingVariation: '',
-      Subtotal: 0.00,
-      Shipping: 0.00,
-      Discount : 0.00,  
-      Tax : 0.00,  
-      Total : 0.00, 
-      OrderLines: [                 // req 
-        {
-          Product: '',              // req (must be unique in the array one line per sku)
-          Quantity: 0,              // req
-          Price: 0.00
-        }
-      ],                        
-      BillingAddress: {             //not required
-        FirstName: '',              // req if not CompanyName 
-        LastName: '', 
-        CompanyName: '',            // req if not Name
-        Address1: '',               // req
-        Address2: '',
-        City: '',                   // req
-        State: '',                  // req if shipping to USA address
-        PostalCode: '',             // req
-        Country: '',                // req
-        PhoneNumber: '',            
-      },
-      ShippingAddress: {
-        CompanyName: '',            // req if not Name
-        Address1: '',               // req
-        Address2: '',
-        City: '',                   // req
-        State: '',                  // req if shipping to USA address
-        PostalCode: '',             // req
-        Country: '',                // req
-        PhoneNumber: '',            
-      }
-    }
+ ```json
+   {
+       "OrderNumber": "",
+       "CustomerNumber": "",
+       "CustomerPO": "",
+       "CustomerOrderNumber": "",
+       "OrderDate": "date-time",
+       "Delay": 15,
+       "AutoAllocate": true,
+       "PartialShip": true,
+       "SplitShip": false,
+       "ShippingService": "",
+       "BillThirdParty": false,
+       "SaturdayDelivery": false,
+       "Residential": true,
+       "InsurePackages": false,
+       "InsureThreshold": 100.00,
+       "PackingListTemplate": "",
+       "PackingListComment": "",
+       "AccountNumber": "",
+       "EmailConfirmationAddress": "",
+       "OrderProcessingVariation": "",
+       "Subtotal": 0.00,
+       "Shipping": 0.00,
+       "Handling": 0.00,
+       "Discount": 0.00,
+       "Tax": 0.00,
+       "Total": 0.00,
+       "ref1": "",
+       "ref2": "",
+       "ref3": "",
+       "ref4": "",
+       "ref5": "",
+       "OrderLines": [
+           {
+               "Product": "",
+               "Quantity": 1,
+               "Description": "",
+               "Price": 0.00,
+               "DeclaredValue": 0.00,
+               "Allocations": [{
+                   "Warehouse": "",
+                   "Quantity": 1
+               }],
+               "ref1": "",
+               "ref2": "",
+               "ref3": ""
+           }
+       ],
+       "BillingAddress": {
+           "FirstName": "", 
+           "LastName": "",
+           "CompanyName": "", 
+           "Address1": "",
+           "Address2": "",
+           "City": "",
+           "State": "",
+           "PostalCode": "",
+           "Country": "",
+           "PhoneNumber": ""
+       },
+       "ShippingAddress": {
+           "FirstName": "",
+           "LastName": "",
+           "CompanyName": "",
+           "Address1": "",
+           "Address2": "",
+           "City": "",
+           "State": "",
+           "PostalCode": "",
+           "Country": "",
+           "PhoneNumber": "" 
+       }
+   }
   
 ```
  
